@@ -1,16 +1,237 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLIX GG V6 - Jogo</title>
+  <meta name="theme-color" content="#10060d">
+
+  <title>FLIX GG V6 — Fora do Ar</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink: #ff3b9d;
+      --pink-dark: #a81760;
+      --text: #fff0f7;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #10060d;
+      color: var(--text);
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    /* Segunda imagem: fundo da página */
+    .background {
+      position: fixed;
+      inset: -25px;
+      z-index: 0;
+
+      background:
+        url("assets/fundo_fora_do_ar.gif")
+        center / cover no-repeat;
+
+      filter: blur(14px) brightness(0.25);
+      transform: scale(1.05);
+    }
+
+    /* Escurecimento DARK PINK */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(100, 12, 58, 0.25),
+        rgba(12, 4, 10, 0.88)
+      );
+    }
+
+    /* Conteúdo principal */
+    .container {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      gap: clamp(25px, 6vw, 85px);
+      padding: 30px;
+    }
+
+    /* Primeira imagem: imagem principal */
+    .logo {
+      width: clamp(110px, 20vh, 190px);
+      height: clamp(110px, 20vh, 190px);
+
+      flex-shrink: 0;
+      object-fit: cover;
+
+      border: 1px solid rgba(255, 59, 157, 0.4);
+
+      box-shadow:
+        0 0 35px rgba(255, 20, 130, 0.15),
+        0 15px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .content {
+      max-width: 650px;
+    }
+
+    .brand {
+      color: var(--pink);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      margin-bottom: 22px;
+    }
+
+    .message {
+      font-size: clamp(16px, 2.2vw, 25px);
+      line-height: 1.8;
+      letter-spacing: 0.3px;
+      color: #f6eaf0;
+    }
+
+    .highlight {
+      display: inline;
+      padding: 2px 7px;
+      color: #fff;
+
+      background: linear-gradient(
+        135deg,
+        #e72c89,
+        #a81760
+      );
+
+      box-shadow: 0 0 20px rgba(255, 40, 145, 0.15);
+    }
+
+    .description {
+      margin-top: 18px;
+      color: rgba(255, 230, 242, 0.6);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer {
+      position: fixed;
+      z-index: 3;
+      bottom: 18px;
+      left: 25px;
+
+      color: rgba(255, 190, 220, 0.4);
+      font-size: 9px;
+      letter-spacing: 3px;
+    }
+
+    /* Orientação vertical */
+    @media (orientation: portrait) {
+      .container {
+        flex-direction: column;
+        gap: 35px;
+        padding: 25px;
+        text-align: center;
+      }
+
+      .logo {
+        width: clamp(100px, 22vw, 150px);
+        height: clamp(100px, 22vw, 150px);
+      }
+
+      .brand {
+        margin-bottom: 14px;
+      }
+
+      .message {
+        font-size: clamp(15px, 4vw, 20px);
+      }
+
+      .description {
+        font-size: 11px;
+      }
+
+      .footer {
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Celular deitado */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .container {
+        gap: 35px;
+        padding: 18px 35px;
+      }
+
+      .logo {
+        width: min(32vh, 135px);
+        height: min(32vh, 135px);
+      }
+
+      .brand {
+        margin-bottom: 12px;
+      }
+
+      .message {
+        font-size: clamp(14px, 3.5vh, 20px);
+      }
+
+      .description {
+        margin-top: 10px;
+        font-size: 10px;
+      }
+
+      .footer {
+        bottom: 8px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<script>
-  window.location.replace(
-    "https://170.ip.nowgg.fun/apps/a/19900/b.html"
-  );
-</script>
+  <div class="background"></div>
+  <div class="overlay"></div>
+
+  <main class="container">
+    <img
+      class="logo"
+      src="assets/fora_do_ar.gif"
+      alt="FLIX GG"
+    >
+
+    <section class="content">
+      <div class="brand">FLIX GG / V6</div>
+
+      <p class="message">
+        O serviço está temporariamente
+        <span class="highlight">fora do ar</span>.
+      </p>
+
+      <p class="description">
+        Por favor, tente novamente mais tarde.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    FLIX GG &bull; SYSTEM STATUS
+  </footer>
 </body>
 </html>
