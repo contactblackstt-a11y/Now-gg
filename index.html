@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0912">
+<title>FLIX GG V6</title>
+
+<style>
+:root {
+  --pink: #e83e9b;
+  --pink-light: #ff78c8;
+  --blue: #193b78;
+  --blue-light: #3478dc;
+  --dark: #0b0912;
+  --text: #fff5fb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--dark);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  opacity: 0;
+  animation: flixFadeIn 1.5s ease-out forwards;
+}
+
+@keyframes flixFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("assets/fundo.gif") center / cover no-repeat;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(232, 62, 155, .18),
+      transparent 65%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(8, 5, 13, .85),
+      rgba(12, 6, 18, .48),
+      rgba(8, 5, 13, .86)
+    );
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 28px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.logo span {
+  color: var(--pink-light);
+}
+
+.status {
+  padding: 8px 12px;
+  border: 1px solid #713454;
+  border-radius: 30px;
+  background: #200e1d;
+  color: var(--pink-light);
+  font-size: 10px;
+  letter-spacing: 1px;
+  animation: onlinePulse 2.8s ease-in-out infinite;
+}
+
+@keyframes onlinPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 rgba(232, 62, 155, 0);
+  }
+
+  50% {
+    opacity: .45;
+    box-shadow: 0 0 14px rgba(232, 62, 155, .35);
+  }
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding-left: 5%;
+}
+
+.subtitle-top {
+  color: var(--pink-light);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 13px;
+}
+
+h1 {
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+h1 span {
+  color: var(--pink-light);
+  text-shadow: 0 0 25px #e83e9b66;
+}
+
+.description {
+  max-width: 350px;
+  margin: 14px 0 22px;
+  color: #d8bfd0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.action-button {
+  width: 190px;
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 11px;
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: transform .18s, filter .18s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.action-button:active {
+  transform: scale(.97);
+  filter: brightness(1.2);
+}
+
+.play-button {
+  border: 1px solid #ff9bd5;
+  background: linear-gradient(
+    135deg, #f45db0, #bd267b, #82164f
+  );
+  box-shadow: 0 6px 20px #c2237b35;
+}
+
+.discord-button {
+  border: 1px solid #426ab0;
+  background: linear-gradient(
+    135deg, #234d91, #172b52
+  );
+  box-shadow: 0 6px 20px #173d7835;
+}
+
+.button-icon {
+  font-size: 15px;
+}
+
+.hint {
+  margin-top: 12px;
+  color: #c9a7bc;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #ffffff20;
+  color: #c8adbf;
+  font-size: 10px;
+}
+
+.version {
+  color: var(--pink-light);
+  letter-spacing: 1.5px;
+}
+
+/* MENU */
+.menu-container {
+  position: fixed;
+  top: 58px;
+  right: 28px;
+  z-index: 10;
+}
+
+.menu-button {
+  padding: 7px 10px;
+  border: 1px solid #713454;
+  border-radius: 8px;
+  background: #200e1d;
+  color: #ff78c8;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.menu-options {
+  display: none;
+  margin-top: 6px;
+  padding: 7px;
+  border: 1px solid #713454;
+  border-radius: 8px;
+  background: #140c18;
+}
+
+.menu-options.show {
+  display: block;
+}
+
+.menu-options button {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #f45db0, #82164f);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (orientation: portrait) {
+  .page {
+    padding: 22px 20px;
+  }
+
+  main {
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .description {
+    max-width: 300px;
+  }
+
+  .actions {
+    align-items: center;
+  }
+
+  .menu-container {
+    right: 20px;
+  }
+}
+
+@media (max-height: 420px) {
+  .page {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .subtitle-top {
+    margin-bottom: 7px;
+  }
+
+  .description {
+    margin: 8px 0 12px;
+  }
+
+  .action-button {
+    min-height: 38px;
+  }
+
+  .hint {
+    margin-top: 6px;
+  }
+
+  .menu-container {
+    top: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation-duration: 0.01ms;
+  }
+
+  .status {
+    animation: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="menu-container">
+  <button
+    class="menu-button"
+    id="menuButton"
+    type="button">
+    ☰ MENU
+  </button>
+
+  <div class="menu-options" id="menuOptions">
+    <button
+      id="clearCacheButton"
+      type="button">
+      ↻ LIMPAR CACHE
+    </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="logo">✦ FLIX <span>GG V6</span></div>
+    <div class="status">● offline</div>
+  </header>
+
+  <main>
+    <div class="subtitle-top">BY - BlakcstT</div>
+
+    <h1>FLIX <span>GG</span></h1>
+
+    <p class="description">
+      • NOVA ATUALIZAÇÃO DO APK •
+    </p>
+
+    <div class="actions">
+
+      <button
+        class="action-button play-button"
+        id="playButton"
+        type="button">
+        <span class="button-icon">▶</span>
+        PLAY ROBLOX
+      </button>
+
+      <button
+        class="action-button discord-button"
+        id="discordButton"
+        type="button">
+        <span class="button-icon">✦</span>
+        DISCORD
+      </button>
+
+    </div>
+
+    <div class="hint">
+      ESCOLHA A OPÇÃO PLAY ROBLOX, SE FOR JOGAR
+    </div>
+  </main>
+
+  <footer>
+    <span>FLIX GG V6</span>
+    <span class="version">:)</span>
+  </footer>
+
+</div>
+
+<script>
+/* URL DO SEGUNDO HTML */
+const INDEX2_URL = "/index2.html";
+
+/* CONVITE DO DISCORD */
+const DISCORD_URL =
+  "https://discord.gg/uW57ERyXj4";
+
+/* ABRIR INDEX 2 */
+document.getElementById("playButton")
+  .addEventListener("click", function() {
+    window.location.href = INDEX2_URL;
+  });
+
+/* ABRIR INDEX 3 PELO BOTÃO DISCORD */
+document.getElementById("discordButton")
+  .addEventListener("click", function() {
+    window.location.href = "/index3.html";
+  });
+
+/* ABRIR E FECHAR MENU */
+document.getElementById("menuButton")
+  .addEventListener("click", function() {
+    document.getElementById("menuOptions")
+      .classList.toggle("show");
+  });
+
+/* LIMPAR CACHE PELO APP, QUANDO DISPONÍVEL */
+document.getElementById("clearCacheButton")
+  .addEventListener("click", function() {
+    document.getElementById("menuOptions")
+      .classList.remove("show");
+
+    if (
+      window.Android &&
+      typeof window.Android.limparCacheJogo === "function"
+    ) {
+      window.Android.limparCacheJogo();
+    } else {
+      alert(
+        "A função de limpar cache só está disponível quando integrada ao aplicativo."
+      );
+    }
+  });
+</script>
+
+</body>
+</html>

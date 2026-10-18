@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050b18">
+
+  <title>FLIX GG V6 — Copie o Link</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #3984ff;
+      --text: #edf4ff;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #050b18;
+      color: var(--text);
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    /* Fundo com imagem desfocada */
+    .background {
+      position: fixed;
+      inset: -25px;
+      z-index: 0;
+
+      background: url("assets/fundo_link.gif")
+        center / cover no-repeat;
+
+      filter: blur(14px) brightness(0.2);
+      transform: scale(1.05);
+    }
+
+    /* Camada DARK BLUE */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(15, 65, 145, 0.25),
+        rgba(3, 7, 18, 0.92)
+      );
+    }
+
+    /* Conteúdo principal */
+    .container {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      gap: clamp(25px, 6vw, 75px);
+      padding: 30px;
+    }
+
+    /* Imagem principal */
+    .logo {
+      width: clamp(110px, 20vh, 180px);
+      height: clamp(110px, 20vh, 180px);
+
+      flex-shrink: 0;
+      object-fit: cover;
+
+      border: 1px solid rgba(57, 132, 255, 0.5);
+
+      box-shadow:
+        0 0 35px rgba(35, 110, 255, 0.2),
+        0 15px 50px rgba(0, 0, 0, 0.45);
+
+      /* Efeito fade-in */
+      animation: imagemFadeIn 1.8s ease-out forwards;
+    }
+
+    @keyframes imagemFadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .content {
+      width: min(100%, 560px);
+    }
+
+    .brand {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .description {
+      color: rgba(220, 233, 255, 0.65);
+      font-size: 12px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    /* Caixa do link */
+    .link-box {
+      width: 100%;
+      padding: 17px 20px;
+
+      background: rgba(8, 20, 43, 0.82);
+      border: 1px solid rgba(57, 132, 255, 0.45);
+      border-radius: 9px;
+
+      box-shadow: 0 0 25px rgba(20, 90, 220, 0.08);
+    }
+
+    .link-text {
+      color: #8ebaff;
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+      user-select: text;
+      cursor: text;
+    }
+
+    .footer {
+      position: fixed;
+      z-index: 3;
+      bottom: 18px;
+      left: 25px;
+
+      color: rgba(170, 200, 255, 0.4);
+      font-size: 9px;
+      letter-spacing: 3px;
+    }
+
+    /* Celular na vertical */
+    @media (orientation: portrait) {
+      .container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 25px;
+        text-align: center;
+      }
+
+      .logo {
+        width: 125px;
+        height: 125px;
+      }
+
+      .brand {
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        font-size: clamp(19px, 5vw, 26px);
+      }
+
+      .link-text {
+        text-align: left;
+      }
+
+      .footer {
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Celular na horizontal */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .container {
+        gap: 30px;
+        padding: 18px 30px;
+      }
+
+      .logo {
+        width: min(30vh, 120px);
+        height: min(30vh, 120px);
+      }
+
+      .brand {
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-size: clamp(18px, 4vh, 25px);
+      }
+
+      .description {
+        margin-bottom: 12px;
+      }
+
+      .footer {
+        bottom: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+  <div class="overlay"></div>
+
+  <main class="container">
+    <img
+      class="logo"
+      src="assets/foto_link.gif"
+      alt="FLIX GG"
+    >
+
+    <section class="content">
+      <div class="brand">oiee :)</div>
+
+      <h1>COPIE O LINK QUE ESTÁ ABAIXO</h1>
+
+      <p class="description">
+        discord do dono/dev do app
+      </p>
+
+      <div class="link-box">
+        <span class="link-text">
+          https://discord.gg/4b9PypedKZ
+        </span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    FLIX GG &bull; V6
+  </footer>
+</body>
+</html>
