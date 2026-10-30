@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#10060d">
 
-  <title>FLIX GG V6 — Fora do Ar</title>
+  <title>FLIX GG V6 — 99 Nights</title>
 
   <style>
     * {
@@ -18,18 +18,20 @@
       --pink: #ff3b9d;
       --pink-dark: #a81760;
       --text: #fff0f7;
+      --bg-dark: #10060d;
+      --overlay-bg: rgba(12, 4, 10, 0.95);
     }
 
     body {
       min-height: 100vh;
       min-height: 100dvh;
       overflow: hidden;
-      background: #10060d;
+      background: var(--bg-dark);
       color: var(--text);
       font-family: Consolas, "Courier New", monospace;
     }
 
-    /* Segunda imagem: fundo da página */
+    /* Fundo com imagem desfocada (mantendo seu estilo) */
     .background {
       position: fixed;
       inset: -25px;
@@ -66,140 +68,192 @@
       min-height: 100dvh;
 
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
 
-      gap: clamp(25px, 6vw, 85px);
-      padding: 30px;
+      gap: 20px;
+      padding: 20px;
     }
 
-    /* Primeira imagem: imagem principal */
-    .logo {
-      width: clamp(110px, 20vh, 190px);
-      height: clamp(110px, 20vh, 190px);
-
-      flex-shrink: 0;
-      object-fit: cover;
-
-      border: 1px solid rgba(255, 59, 157, 0.4);
-
-      box-shadow:
-        0 0 35px rgba(255, 20, 130, 0.15),
-        0 15px 50px rgba(0, 0, 0, 0.4);
+    /* Header FLIX GG */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 10px;
     }
 
-    .content {
-      max-width: 650px;
-    }
-
-    .brand {
+    .logo-text {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 2px;
       color: var(--pink);
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 5px;
-      margin-bottom: 22px;
     }
 
-    .message {
-      font-size: clamp(16px, 2.2vw, 25px);
-      line-height: 1.8;
-      letter-spacing: 0.3px;
-      color: #f6eaf0;
+    .status-badge {
+      padding: 6px 12px;
+      border: 1px solid var(--pink);
+      border-radius: 20px;
+      background: rgba(255, 59, 157, 0.1);
+      color: var(--pink);
+      font-size: 10px;
+      letter-spacing: 1px;
+      animation: pulse 2s infinite;
     }
 
-    .highlight {
-      display: inline;
-      padding: 2px 7px;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Painel de Controle */
+    .control-panel {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(16, 6, 13, 0.9);
+      border: 1px solid var(--pink-dark);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .url-input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #000;
       color: #fff;
-
-      background: linear-gradient(
-        135deg,
-        #e72c89,
-        #a81760
-      );
-
-      box-shadow: 0 0 20px rgba(255, 40, 145, 0.15);
-    }
-
-    .description {
-      margin-top: 18px;
-      color: rgba(255, 230, 242, 0.6);
       font-size: 12px;
-      line-height: 1.8;
+      font-family: inherit;
     }
 
-    .footer {
-      position: fixed;
-      z-index: 3;
-      bottom: 18px;
-      left: 25px;
-
-      color: rgba(255, 190, 220, 0.4);
-      font-size: 9px;
-      letter-spacing: 3px;
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 11px;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+      white-space: nowrap;
     }
 
-    /* Orientação vertical */
-    @media (orientation: portrait) {
-      .container {
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.2);
+    }
+
+    .btn-secondary {
+      background: #333;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #444;
+    }
+
+    .status-text {
+      font-size: 10px;
+      color: #aaa;
+      text-align: center;
+    }
+
+    /* Área do Jogo */
+    .game-container {
+      width: 100%;
+      max-width: 1000px;
+      height: 60vh;
+      min-height: 400px;
+      background: #000;
+      border: 1px solid var(--pink-dark);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .game-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      visibility: hidden;
+    }
+
+    /* Loading Overlay */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #333;
+      border-top: 4px solid var(--pink);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-box {
+      background: rgba(16, 6, 13, 0.95);
+      border: 1px solid var(--pink);
+      border-radius: 8px;
+      padding: 15px;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .error-box h3 {
+      color: var(--pink);
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .error-box p {
+      color: #ccc;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .control-row {
         flex-direction: column;
-        gap: 35px;
-        padding: 25px;
-        text-align: center;
       }
-
-      .logo {
-        width: clamp(100px, 22vw, 150px);
-        height: clamp(100px, 22vw, 150px);
-      }
-
-      .brand {
-        margin-bottom: 14px;
-      }
-
-      .message {
-        font-size: clamp(15px, 4vw, 20px);
-      }
-
-      .description {
-        font-size: 11px;
-      }
-
-      .footer {
-        left: 0;
-        width: 100%;
-        text-align: center;
-      }
-    }
-
-    /* Celular deitado */
-    @media (orientation: landscape) and (max-height: 500px) {
-      .container {
-        gap: 35px;
-        padding: 18px 35px;
-      }
-
-      .logo {
-        width: min(32vh, 135px);
-        height: min(32vh, 135px);
-      }
-
-      .brand {
-        margin-bottom: 12px;
-      }
-
-      .message {
-        font-size: clamp(14px, 3.5vh, 20px);
-      }
-
-      .description {
-        margin-top: 10px;
-        font-size: 10px;
-      }
-
-      .footer {
-        bottom: 8px;
+      
+      .game-container {
+        height: 50vh;
+        min-height: 300px;
       }
     }
   </style>
@@ -210,28 +264,215 @@
   <div class="overlay"></div>
 
   <main class="container">
-    <img
-      class="logo"
-      src="assets/fora_do_ar.gif"
-      alt="FLIX GG"
-    >
+    <div class="header">
+      <div class="logo-text">✦ FLIX <span style="color: #fff;">GG V6</span></div>
+      <div class="status-badge">● OFUSCADO</div>
+    </div>
 
-    <section class="content">
-      <div class="brand">FLIX GG / V6</div>
+    <div class="control-panel">
+      <div class="control-row">
+        <input type="text" id="url-input" class="url-input" value="https://now.gg/apps/mini-games-rb/19902/99-Nights.html" spellcheck="false">
+        <button id="btn-load" class="btn btn-primary">CARREGAR JOGO</button>
+        <button id="btn-direct" class="btn btn-secondary">MODO DIRETO</button>
+      </div>
+      <div class="status-text" id="status">Pronto para ofuscar e carregar o jogo.</div>
+    </div>
 
-      <p class="message">
-        O serviço está temporariamente
-        <span class="highlight">fora do ar</span>.
-      </p>
-
-      <p class="description">
-        Por favor, tente novamente mais tarde.
-      </p>
-    </section>
+    <div class="game-container">
+      <iframe id="game-iframe" class="game-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"></iframe>
+      
+      <div id="loading-overlay" class="loading-overlay">
+        <div id="loading-content" style="display: flex; flex-direction: column; align-items: center;">
+          <div class="spinner"></div>
+          <div id="loading-text">Ofuscando requisições...</div>
+        </div>
+        <div id="error-container" class="error-box" style="display: none;">
+          <h3>Erro ao Carregar</h3>
+          <p id="error-message">Mensagem de erro aqui.</p>
+          <button id="btn-retry" class="btn btn-primary">TENTAR NOVAMENTE</button>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <footer class="footer">
-    FLIX GG &bull; SYSTEM STATUS
-  </footer>
-</body>
-</html>
+  <script>
+    const urlInput = document.getElementById('url-input');
+    const btnLoad = document.getElementById('btn-load');
+    const btnDirect = document.getElementById('btn-direct');
+    const statusEl = document.getElementById('status');
+    const gameIframe = document.getElementById('game-iframe');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const loadingContent = document.getElementById('loading-content');
+    const loadingText = document.getElementById('loading-text');
+    const errorContainer = document.getElementById('error-container');
+    const errorMessage = document.getElementById('error-message');
+    const btnRetry = document.getElementById('btn-retry');
+
+    // Proxies CORS de contingência
+    const CORS_PROXIES = [
+      url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+      url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+      url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+    ];
+
+    function setStatus(msg) { statusEl.textContent = msg; }
+    function showLoading(msg) {
+      loadingOverlay.style.display = 'flex';
+      loadingContent.style.display = 'flex';
+      loadingText.textContent = msg;
+      errorContainer.style.display = 'none';
+    }
+    function hideLoading() {
+      loadingOverlay.style.display = 'none';
+      gameIframe.style.visibility = 'visible';
+    }
+    function showError(msg) {
+      loadingContent.style.display = 'none';
+      errorContainer.style.display = 'block';
+      errorMessage.textContent = msg;
+      gameIframe.style.visibility = 'hidden';
+    }
+
+    function removeTrackingParams(url) {
+      const qIndex = url.indexOf('?');
+      return qIndex > 0 ? url.substring(0, qIndex) : url;
+    }
+
+    function processHtml(html, baseUrl) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      let baseTag = doc.querySelector('base');
+      if (!baseTag) {
+        baseTag = doc.createElement('base');
+        doc.head.appendChild(baseTag);
+      }
+      baseTag.setAttribute('href', baseUrl);
+
+      const adjustUrl = (element, attr) => {
+        const val = element.getAttribute(attr);
+        if (val && !val.startsWith('http') && !val.startsWith('//')) {
+          element.setAttribute(attr, new URL(val, baseUrl).href);
+        } else if (val && val.startsWith('//')) {
+          element.setAttribute(attr, 'https:' + val);
+        }
+      };
+
+      doc.querySelectorAll('script[src]').forEach(el => adjustUrl(el, 'src'));
+      doc.querySelectorAll('link[href]').forEach(el => adjustUrl(el, 'href'));
+      doc.querySelectorAll('img[src]').forEach(el => adjustUrl(el, 'src'));
+      
+      const blockedPatterns = ['google-analytics', 'facebook', 'doubleclick', 'hotjar', 'mixpanel'];
+      doc.querySelectorAll('script').forEach(script => {
+        const src = script.src || script.textContent;
+        if (blockedPatterns.some(p => src.toLowerCase().includes(p))) {
+          script.remove();
+        }
+      });
+
+      const spoofScript = document.createElement('script');
+      spoofScript.textContent = `
+        try {
+          window.__originalUrl = "${baseUrl}";
+          console.log("[FLIX GG Ofuscator] Injetado com base em:", "${baseUrl}");
+        } catch (e) {
+          console.warn("[FLIX GG Ofuscator] Erro na injeção:", e);
+        }
+      `;
+      doc.head.insertBefore(spoofScript, doc.head.firstChild);
+
+      return doc.documentElement.outerHTML;
+    }
+
+    async function fetchWithProxy(url, proxyIndex = 0) {
+      if (proxyIndex >= CORS_PROXIES.length) {
+        throw new Error("Todos os proxies CORS falharam.");
+      }
+      
+      const proxyUrl = CORS_PROXIES[proxyIndex](url);
+      setStatus(`Tentando proxy ${proxyIndex + 1}/${CORS_PROXIES.length}...`);
+      
+      try {
+        const response = await fetch(proxyUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const html = await response.text();
+        
+        if (html.toLowerCase().includes('<html') || html.toLowerCase().includes('<!doctype')) {
+          return html;
+        } else {
+          return html;
+        }
+
+      } catch (err) {
+        console.warn(`Proxy ${proxyIndex} falhou:`, err);
+        return fetchWithProxy(url, proxyIndex + 1);
+      }
+    }
+
+    async function loadOfuscated() {
+      const originalUrl = urlInput.value.trim();
+      if (!originalUrl) {
+        showError("Insira uma URL válida.");
+        return;
+      }
+
+      const cleanUrl = removeTrackingParams(originalUrl);
+      showLoading(`Baixando conteúdo de ${cleanUrl}...`);
+
+      try {
+        const html = await fetchWithProxy(cleanUrl, 0);
+        
+        if (!html) {
+          throw new Error("Nenhum conteúdo recebido.");
+        }
+
+        const processedHtml = processHtml(html, cleanUrl);
+        
+        gameIframe.srcdoc = processedHtml;
+        
+        setTimeout(() => {
+          hideLoading();
+          setStatus("Jogo carregado com ofuscação FLIX GG.");
+        }, 1000);
+
+      } catch (error) {
+        console.error("Erro final:", error);
+        showError(`Falha ao carregar: ${error.message}. Verifique sua conexão ou tente o Modo Direto.`);
+      }
+    }
+
+    function loadDirect() {
+      const url = urlInput.value.trim();
+      if (!url) {
+        showError("Insira uma URL.");
+        return;
+      }
+      showLoading("Carregando diretamente (Sem ofuscação)...");
+      
+      gameIframe.src = url;
+      
+      gameIframe.onload = () => {
+        hideLoading();
+        setStatus("Carregado em Modo Direto.");
+      };
+      
+      setTimeout(() => {
+        if (loadingOverlay.style.display !== 'none') {
+          setStatus("Lento. Verifique a conexão.");
+        }
+      }, 15000);
+    }
+
+    // Eventos
+    btnLoad.addEventListener('click', loadOfuscated);
+    btnDirect.addEventListener('click
