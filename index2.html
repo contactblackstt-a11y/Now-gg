@@ -36,27 +36,41 @@
 </head>
 <body>
   <div id="blackout"></div>
-  <iframe 
-    id="site-frame" 
-    src="https://146.ip.nowgg.fun/apps/a/19900/b.html" 
-    allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
-    allowtransparency="true" 
-    frameborder="0"
-    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-  ></iframe>
+  <div id="site-frame" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;background:#000;"></div>
   <script>
     (function() {
-      const MIN_TIME = 5000;
+      const TARGET_URL = "https://146.ip.nowgg.fun/apps/a/19900/b.html";
+      const TOTAL_BLACKOUT = 10000;
+      const LOAD_AT = 5000;
       const FADE = 1500;
       const start = Date.now();
       const blackout = document.getElementById('blackout');
-      const frame = document.getElementById('site-frame');
-      let done = false;
+      const container = document.getElementById('site-frame');
+      let loaded = false;
+      let hidden = false;
 
-      function hide() {
-        if (done) return;
-        done = true;
-        const wait = Math.max(0, MIN_TIME - (Date.now() - start));
+      function loadSite() {
+        if (loaded) return;
+        loaded = true;
+        const iframe = document.createElement('iframe');
+        iframe.src = TARGET_URL;
+        iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+        iframe.allowtransparency = 'true';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.display = 'block';
+        iframe.style.background = '#000';
+        iframe.sandbox = 'allow-scripts allow-same-origin allow-popups allow-forms';
+        container.innerHTML = '';
+        container.appendChild(iframe);
+      }
+
+      function hideBlackout() {
+        if (hidden) return;
+        hidden = true;
+        const elapsed = Date.now() - start;
+        const wait = Math.max(0, TOTAL_BLACKOUT - elapsed);
         setTimeout(() => {
           blackout.style.opacity = '0';
           setTimeout(() => {
@@ -65,8 +79,11 @@
         }, wait);
       }
 
-      frame.addEventListener('load', hide);
-      setTimeout(hide, 8000);
+      // Carrega o site no meio do tempo (5 segundos)
+      setTimeout(loadSite, LOAD_AT);
+
+      // Esconde a tela preta após o tempo total (10 segundos)
+      setTimeout(hideBlackout, TOTAL_BLACKOUT);
     })();
   </script>
 </body>
