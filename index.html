@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -37,7 +36,6 @@ body {
   font-family: Arial, sans-serif;
   opacity: 0;
   animation: flixFadeIn 1.5s ease-out forwards;
-  transition: filter .35s ease, opacity .35s ease;
 }
 
 @keyframes flixFadeIn {
@@ -273,29 +271,6 @@ footer {
   white-space: nowrap;
 }
 
-/* TRANSIÇÃO BLUR */
-body.loading-game {
-  filter: blur(12px);
-  opacity: .35;
-  pointer-events: none;
-  transform: scale(1.02);
-}
-
-body.loading-game::after {
-  content: "CARREGANDO...";
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  z-index: 9999;
-  pointer-events: none;
-}
-
 @media (orientation: portrait) {
   .page {
     padding: 22px 20px;
@@ -434,65 +409,28 @@ body.loading-game::after {
 </div>
 
 <script>
-
-/* PLAY ROBLOX COM BLUR E PRÉ-CARREGAMENTO */
+/* ABRIR INDEX 2 */
 document.getElementById("playButton")
-  .addEventListener("click", async function() {
-
-    const button = this;
-
-    if (button.disabled) return;
-
-    button.disabled = true;
-
-    // Ativa o desfoque no Index 1
-    document.body.classList.add("loading-game");
-
-    try {
-
-      // Pré-carrega o Index 2
-      await fetch("index2.html", {
-        cache: "no-store"
-      });
-
-      // Pequeno tempo para visualizar o efeito
-      await new Promise(resolve => setTimeout(resolve, 350));
-
-      // Abre o Index 2
-      window.location.href = "index2.html";
-
-    } catch (error) {
-
-      window.location.href = "index2.html";
-
-    }
-
+  .addEventListener("click", function() {
+    window.location.href = "index2.html";
   });
-
 
 /* ABRIR INDEX 3 PELO BOTÃO DISCORD */
 document.getElementById("discordButton")
   .addEventListener("click", function() {
-
     window.location.href = "index3.html";
-
   });
-
 
 /* ABRIR E FECHAR MENU */
 document.getElementById("menuButton")
   .addEventListener("click", function() {
-
     document.getElementById("menuOptions")
       .classList.toggle("show");
-
   });
 
-
-/* LIMPAR CACHE PELO APP */
+/* LIMPAR CACHE PELO APP, QUANDO DISPONÍVEL */
 document.getElementById("clearCacheButton")
   .addEventListener("click", function() {
-
     document.getElementById("menuOptions")
       .classList.remove("show");
 
@@ -500,20 +438,14 @@ document.getElementById("clearCacheButton")
       window.Android &&
       typeof window.Android.limparCacheJogo === "function"
     ) {
-
       window.Android.limparCacheJogo();
-
     } else {
-
       alert(
         "A função de limpar cache só está disponível quando integrada ao aplicativo."
       );
-
     }
-
   });
-
 </script>
 
 </body>
-</html>
+  </html>
